@@ -1,0 +1,31 @@
+{
+    "cells": [
+        {
+            "language": "typescript",
+            "source": [
+                "import \"dotenv/config\";\n\nconst token = process.env.API_KEY ?? \"\";\n\nconst BMI = (weight, height) => {\n    return weight / (height * height);\n};\n\nconst getBMIRange = async (breed) => {\n    const base_url = \"https://api.thedogapi.com/v1\";\n\n    const response = await fetch(`${base_url}/breeds/search?q=${breed}`, {\n        method: \"GET\",\n        headers: {\n            \"x-api-key\": token,\n        },\n    });\n    const data = await response.json();\n\n    const result = data[0];\n\n\n    const min_weight = result.weight.metric.split(\" - \")[0];\n    const min_height = result.height.metric.split(\" - \")[0];\n\n    \n    const max_weight = result.weight.metric.split(\" - \")[1];\n    const max_height = result.height.metric.split(\" - \")[1];\n    \n    console.log(min_weight, min_height, max_weight, max_height)\n\n    const min_bmi = BMI(min_weight, max_height);\n    const max_bmi = BMI(max_weight, min_height);\n\n    return { min_bmi, max_bmi };\n};"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "typescript",
+            "source": [
+                "console.log(await getBMIRange(\"german shepherd\"))"
+            ],
+            "outputs": [
+                {
+                    "items": [
+                        {
+                            "mime": "application/vnd.code.notebook.stdout",
+                            "value": [
+                                "23 56 41 66",
+                                "{ min_bmi: 0.005280073461891644, max_bmi: 0.013073979591836735 }",
+                                ""
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
