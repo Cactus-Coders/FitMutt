@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { ImInfo } from "react-icons/im";
-import { health_calc } from "./healthCalc"
+import { health_calc } from "../healthCalc"
 function Form() {
   const [breed, setBreed] = useState("");
   const [weight, setWeight] = useState("");
