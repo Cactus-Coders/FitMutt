@@ -1,5 +1,3 @@
-import { baseUrl } from "./api";
-
 export const health_calc = async (
     height,
     height_units,
@@ -7,7 +5,7 @@ export const health_calc = async (
     weight_units,
     breed
 ) => {
-    const base_url = baseUrl();
+    const base_url = window.location.origin;
     const res = await fetch(
         `${base_url}/api/health?height=${height}&height_units=${height_units}&weight=${weight}&weight_units=${weight_units}&breed=${breed}`,
         {
@@ -15,6 +13,7 @@ export const health_calc = async (
         }
     );
     const result = await res.json();
+    console.log(result);
 
     return result;
 };
