@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { ImInfo } from "react-icons/im";
+import { health_calc } from "./healthCalc"
 function Form() {
   const [breed, setBreed] = useState("");
   const [weight, setWeight] = useState("");
@@ -9,9 +10,10 @@ function Form() {
   const [heightUnits, setHeightUnits] = useState("in");
   const [weightUnits, setWeightUnits] = useState("lb");
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     console.log(breed, weight, height, heightUnits, weightUnits);
+    await health_calc(height, heightUnits, weight, weightUnits, breed)
   };
 
   const toggleWeight = (value) => {
